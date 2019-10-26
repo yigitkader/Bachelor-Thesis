@@ -1,9 +1,6 @@
 # My Bachelor-Thesis About Face Detection And Facial Expression
 
 
-# ------------------------
-
-
 # Dependencies
 
 -Libraries
@@ -18,4 +15,3 @@
 8)matplotlib
 
 
-# -------------------------
