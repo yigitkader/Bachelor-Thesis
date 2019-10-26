@@ -10,7 +10,7 @@ from imutils import face_utils
 from keras.models import load_model
 import face_recognition
 from statistics import mode
-from zdatasets.datasets import get_labels
+from datasets.datasets import get_labels
 from datasets.inference import draw_bounding_box
 from datasets.inference import draw_text
 from datasets.preprocessor import preprocess_input

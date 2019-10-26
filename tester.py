@@ -64,7 +64,7 @@ def face_compare(frame,process_this_frame):
 #---------------------
 
 
-frontal_face_extended=cv2.CascadeClassifier('cascades/frontal_face_extended.xml')
+frontal_face_extended=cv2.CascadeClassifier('src/haarcascade_frontalface_default.xml')
 
 USE_WEBCAM = True
 
@@ -114,16 +114,6 @@ face_names = []
 process_this_frame = True
 
 
-
-
-
-
-
-
-
-
-cv2.namedWindow('window_frame')
-video_Capture = cv2.VideoCapture(0)
 
 
 cap = None
@@ -201,27 +191,6 @@ while cap.isOpened(): # True:
                   color, 0, -45, 0.5, 1)
 
 
-
-
-
-    #ISHUMAN CHECK CONTROL
-    grey_ton = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY) #Convertcolor(cvtColor)
-
-    # Resize frame of video to 1/4 size for faster face recognition processing
-    small_frame2 = cv2.resize(grey_ton, (0, 0), fx=0.25, fy=0.25)
-
-    # Convert the image from BGR color (which OpenCV uses) to RGB color (which face_recognition uses)
-    rgb_small_frame2 = small_frame[:, :, ::-1]
-
-    faces = frontal_face_extended.detectMultiScale(rgb_small_frame2,1.1,2)
-
-    for(x,y,w,h) in faces:
-        #show frame
-        x *= 4
-        y *= 4
-        w *= 4
-        h *= 4
-        cv2.rectangle(frame,(x,y),(x+w,y+h),(0,255,0),2) #framei göster,sol üst ,sağ üst koordinatla,renk,kalınlık
 
 
     frame = cv2.cvtColor(rgb_image, cv2.COLOR_RGB2BGR)
