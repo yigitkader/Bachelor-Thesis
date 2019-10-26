@@ -12,7 +12,7 @@ camera = cv2.VideoCapture(0)
 
 #face_cascade=cv2.CascadeClassifier('cascades/haarcascade_profile.xml')
 #frontal_face_cascade=cv2.CascadeClassifier('cascades/frontal_face.xml')
-frontal_face_extended=cv2.CascadeClassifier('cascades/frontal_face_extended.xml')
+frontal_face_extended=cv2.CascadeClassifier('src/frontal_face_extended.xml')
 
 while (1):
     ret,frame=camera.read()
