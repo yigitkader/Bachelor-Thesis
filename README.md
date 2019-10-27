@@ -15,3 +15,9 @@
 8)matplotlib
 
 
+# Files
+
+1) fer2013.csv
+2) emotion_model.hdf5
+3) haarcascade_frontalface_default.xml
+

@@ -12,7 +12,12 @@ from datasets.preprocessor import preprocess_input
 from datasets.inference import apply_offsets
 
 
+frontal_face_extended=cv2.CascadeClassifier('src/haarcascade_frontalface_default.xml')
 
+USE_WEBCAM = True
+
+emotion_model_path = './src/emotion_model.hdf5'
+emotion_labels = get_labels('fer2013')
 
 
 #----------------
@@ -64,12 +69,38 @@ def face_compare(frame,process_this_frame):
 #---------------------
 
 
-frontal_face_extended=cv2.CascadeClassifier('src/haarcascade_frontalface_default.xml')
 
-USE_WEBCAM = True
+def humanFaceDetect(frame):
+    # Resize frame of video to 1/4 size for faster face recognition processing
+    small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
 
-emotion_model_path = './src/emotion_model.hdf5'
-emotion_labels = get_labels('fer2013')
+     # Convert the image from BGR color (which OpenCV uses) to RGB color (which face_recognition uses)
+    rgb_small_frame = small_frame[:, :, ::-1]
+
+    #ISHUMAN CHECK CONTROL
+    grey_ton = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY) #Convertcolor(cvtColor)
+
+    # Resize frame of video to 1/4 size for faster face recognition processing
+    small_frame2 = cv2.resize(grey_ton, (0, 0), fx=0.25, fy=0.25)
+
+    # Convert the image from BGR color (which OpenCV uses) to RGB color (which face_recognition uses)
+    rgb_small_frame2 = small_frame[:, :, ::-1]
+
+    faces = frontal_face_extended.detectMultiScale(rgb_small_frame2,1.1,2)
+
+    for(x,y,w,h) in faces:
+        #show frame
+        x *= 4
+        y *= 4
+        w *= 4
+        h *= 4
+        cv2.rectangle(frame,(x,y),(x+w,y+h),(0,255,0),1) #framei göster,sol üst ,sağ üst koordinatla,renk,kalınlık
+
+
+
+#---------------------
+
+
 
 # hyper-parameters for bounding boxes shape
 frame_window = 10
@@ -116,6 +147,12 @@ process_this_frame = True
 
 
 
+
+
+
+
+
+
 cap = None
 if (USE_WEBCAM == True):
     cap = cv2.VideoCapture(0) # Webcam source
@@ -125,6 +162,9 @@ else:
 
 while cap.isOpened(): # True:
     ret, frame = cap.read()
+
+
+    humanFaceDetect(frame)
 
 
     gray_image = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -163,15 +203,17 @@ while cap.isOpened(): # True:
 
 
         if emotion_text == 'angry':
-            color = emotion_probability * np.asarray((255, 0, 0))
+            color = emotion_probability * np.asarray((255, 246, 5))
         elif emotion_text == 'sad':
-            color = emotion_probability * np.asarray((0, 0, 255))
+            color = emotion_probability * np.asarray((255, 246, 5))
         elif emotion_text == 'happy':
-            color = emotion_probability * np.asarray((255, 255, 0))
+            color = emotion_probability * np.asarray((255, 246, 5))
         elif emotion_text == 'surprise':
-            color = emotion_probability * np.asarray((0, 255, 255))
+            color = emotion_probability * np.asarray((255, 246, 5))
+        elif emotion_text == 'neutral':
+            color = emotion_probability * np.asarray((255, 246, 5))
         else:
-            color = emotion_probability * np.asarray((0, 255, 0))
+            color = emotion_probability * np.asarray((255, 246, 5))
 
 
 
@@ -188,7 +230,7 @@ while cap.isOpened(): # True:
 
         draw_bounding_box(face_utils.rect_to_bb(face_coordinates), rgb_image, color)
         draw_text(face_utils.rect_to_bb(face_coordinates), rgb_image, name,
-                  color, 0, -45, 0.5, 1)
+                  color, 0, -25, 1, 1)
 
 
 
