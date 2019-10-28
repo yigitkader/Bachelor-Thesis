@@ -24,12 +24,15 @@ emotion_labels = get_labels('fer2013')
 
 def face_compare(frame,process_this_frame):
 
+    grey_ton = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY) #Convertcolor(cvtColor)
+
     # Resize frame of video to 1/4 size for faster face recognition processing
-    small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
+    small_frame = cv2.resize(grey_ton, (0, 0), fx=0.25, fy=0.25)
 
     # Convert the image from BGR color (which OpenCV uses) to RGB color (which face_recognition uses)
     rgb_small_frame = small_frame[:, :, ::-1]
 
+    
     # Only process every other frame of video to save time
     if process_this_frame:
         # Find all the faces and face encodings in the current frame of video
@@ -69,7 +72,7 @@ def face_compare(frame,process_this_frame):
 #---------------------
 
 
-
+#ISHUMAN CHECK CONTROL
 def humanFaceDetect(frame):
     # Resize frame of video to 1/4 size for faster face recognition processing
     small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
@@ -77,7 +80,7 @@ def humanFaceDetect(frame):
      # Convert the image from BGR color (which OpenCV uses) to RGB color (which face_recognition uses)
     rgb_small_frame = small_frame[:, :, ::-1]
 
-    #ISHUMAN CHECK CONTROL
+    
     grey_ton = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY) #Convertcolor(cvtColor)
 
     # Resize frame of video to 1/4 size for faster face recognition processing
@@ -145,19 +148,11 @@ face_names = []
 process_this_frame = True
 
 
-
-
-
-
-
-
-
-
 cap = None
 if (USE_WEBCAM == True):
     cap = cv2.VideoCapture(0) # Webcam source
 else:
-    cap = cv2.VideoCapture('./test/testvdo.mp4') # Video file source
+    cap = cv2.VideoCapture('testvdo.mp4') # Video file source
 
 
 while cap.isOpened(): # True:
