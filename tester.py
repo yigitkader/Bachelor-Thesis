@@ -24,13 +24,15 @@ emotion_labels = get_labels('fer2013')
 
 def face_compare(frame,process_this_frame):
 
-    grey_ton = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY) #Convertcolor(cvtColor)
+    #grey_ton = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY) #Convertcolor(cvtColor)
 
     # Resize frame of video to 1/4 size for faster face recognition processing
-    small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
+    small_frame = cv2.resize(frame, (0, 0), fx=0.20, fy=0.20)
 
+    rgb_small_frame_z = small_frame[:, :, ::-1]
+    
     # Convert the image from BGR color (which OpenCV uses) to RGB color (which face_recognition uses)
-    rgb_small_frame = small_frame[:, :, ::-1]
+    rgb_small_frame = rgb_small_frame_z[:, :, ::-1]
 
     
     # Only process every other frame of video to save time
@@ -58,10 +60,10 @@ def face_compare(frame,process_this_frame):
     # Display the results
     for (top, right, bottom, left), name in zip(face_locations, face_names):
         # Scale back up face locations since the frame we detected in was scaled to 1/4 size
-        top *= 4
-        right *= 4
-        bottom *= 4
-        left *= 4
+        top *= 5
+        right *= 5
+        bottom *= 5
+        left *= 5
         #cv2.rectangle(frame, (left, bottom+36), (right, bottom), (0, 0, 0), cv2.FILLED)
         font = cv2.FONT_HERSHEY_DUPLEX
         cv2.putText(frame, name, (left + 6, bottom+20), font, 0.3, (255, 255, 255), 1)
@@ -77,17 +79,17 @@ def humanFaceDetect(frame):
     # Resize frame of video to 1/4 size for faster face recognition processing
     small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
 
-     # Convert the image from BGR color (which OpenCV uses) to RGB color (which face_recognition uses)
+    #  # Convert the image from BGR color (which OpenCV uses) to RGB color (which face_recognition uses)
     rgb_small_frame = small_frame[:, :, ::-1]
 
     
-    grey_ton = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY) #Convertcolor(cvtColor)
+    # grey_ton = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY) #Convertcolor(cvtColor)
 
-    # Resize frame of video to 1/4 size for faster face recognition processing
-    small_frame2 = cv2.resize(grey_ton, (0, 0), fx=0.25, fy=0.25)
+    # # Resize frame of video to 1/4 size for faster face recognition processing
+    # small_frame2 = cv2.resize(grey_ton, (0, 0), fx=0.25, fy=0.25)
 
     # Convert the image from BGR color (which OpenCV uses) to RGB color (which face_recognition uses)
-    rgb_small_frame2 = small_frame[:, :, ::-1]
+    rgb_small_frame2 = rgb_small_frame[:, :, ::-1]
 
     faces = frontal_face_extended.detectMultiScale(rgb_small_frame2,1.1,2)
 
@@ -197,25 +199,41 @@ while cap.isOpened(): # True:
 
 
 
+        # if emotion_text == 'angry':
+        #     color = emotion_probability * np.asarray((255, 246, 5))
+        # elif emotion_text == 'sad':
+        #     color = emotion_probability * np.asarray((255, 246, 5))
+        # elif emotion_text == 'happy':
+        #     color = emotion_probability * np.asarray((255, 246, 5))
+        # elif emotion_text == 'surprise':
+        #     color = emotion_probability * np.asarray((255, 246, 5))
+        # elif emotion_text == 'neutral':
+        #     color = emotion_probability * np.asarray((255, 246, 5))
+        # else:
+        #     color = emotion_probability * np.asarray((255, 246, 5))
+
+
+
+        # color = color.astype(int)
+        # color = color.tolist()
+
+
         if emotion_text == 'angry':
-            color = emotion_probability * np.asarray((255, 246, 5))
+            color = (255, 246, 5)
         elif emotion_text == 'sad':
-            color = emotion_probability * np.asarray((255, 246, 5))
+            color = (255, 246, 5)
         elif emotion_text == 'happy':
-            color = emotion_probability * np.asarray((255, 246, 5))
+            color = (255, 246, 5)
         elif emotion_text == 'surprise':
-            color = emotion_probability * np.asarray((255, 246, 5))
+            color = (255, 246, 5)
         elif emotion_text == 'neutral':
-            color = emotion_probability * np.asarray((255, 246, 5))
+            color = (255, 255, 255)
         else:
-            color = emotion_probability * np.asarray((255, 246, 5))
+            color = (255, 246, 5)
 
 
-
-        color = color.astype(int)
-        color = color.tolist()
-
-
+        #const color
+        # color = (255, 255, 255)
 
         if fname == "Unknown":
             name = emotion_text
