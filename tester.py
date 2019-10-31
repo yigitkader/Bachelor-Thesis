@@ -63,7 +63,7 @@ def face_compare(frame,process_this_frame):
     return face_names
     # Display the results
     for (top, right, bottom, left), name in zip(face_locations, face_names):
-        # Scale back up face locations since the frame we detected in was scaled to 1/4 size
+        # Scale back up face locations since the frame we detected in was scaled to 1/10 size
         top *= 10
         right *= 10
         bottom *= 10
@@ -153,7 +153,7 @@ known_face_names = [
 
 
 
-# Initialize some variables
+# Initialize some variables for we need
 face_locations = []
 face_encodings = []
 face_names = []
@@ -249,6 +249,8 @@ while cap.isOpened(): # True:
             name = emotion_text
         else:
             name = str(fname) + " is " + str(emotion_text)
+
+
 
 
         draw_bounding_box(face_utils.rect_to_bb(face_coordinates), rgb_image, color)
