@@ -27,12 +27,16 @@ def face_compare(frame,process_this_frame):
     #grey_ton = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY) #Convertcolor(cvtColor)
 
     # Resize frame of video to 1/4 size for faster face recognition processing
-    small_frame = cv2.resize(frame, (0, 0), fx=0.20, fy=0.20)
-
-    rgb_small_frame_z = small_frame[:, :, ::-1]
+    small_frame = cv2.resize(frame, (0, 0), fx=0.10, fy=0.10)   
     
-    # Convert the image from BGR color (which OpenCV uses) to RGB color (which face_recognition uses)
-    rgb_small_frame = rgb_small_frame_z[:, :, ::-1]
+   
+    
+    # rgb_small_frame_z = small_frame[:, :, ::-1]
+
+    # # Convert the image from BGR color (which OpenCV uses) to RGB color (which face_recognition uses)
+    # rgb_small_frame = rgb_small_frame_z[:, :, ::-1]
+
+    rgb_small_frame = small_frame[:, :, ::-1]
 
     
     # Only process every other frame of video to save time
@@ -60,10 +64,10 @@ def face_compare(frame,process_this_frame):
     # Display the results
     for (top, right, bottom, left), name in zip(face_locations, face_names):
         # Scale back up face locations since the frame we detected in was scaled to 1/4 size
-        top *= 5
-        right *= 5
-        bottom *= 5
-        left *= 5
+        top *= 10
+        right *= 10
+        bottom *= 10
+        left *= 10
         #cv2.rectangle(frame, (left, bottom+36), (right, bottom), (0, 0, 0), cv2.FILLED)
         font = cv2.FONT_HERSHEY_DUPLEX
         cv2.putText(frame, name, (left + 6, bottom+20), font, 0.3, (255, 255, 255), 1)
@@ -77,16 +81,10 @@ def face_compare(frame,process_this_frame):
 #ISHUMAN CHECK CONTROL
 def humanFaceDetect(frame):
     # Resize frame of video to 1/4 size for faster face recognition processing
-    small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
+    small_frame = cv2.resize(frame, (0, 0), fx=0.20, fy=0.20)
 
     #  # Convert the image from BGR color (which OpenCV uses) to RGB color (which face_recognition uses)
     rgb_small_frame = small_frame[:, :, ::-1]
-
-    
-    # grey_ton = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY) #Convertcolor(cvtColor)
-
-    # # Resize frame of video to 1/4 size for faster face recognition processing
-    # small_frame2 = cv2.resize(grey_ton, (0, 0), fx=0.25, fy=0.25)
 
     # Convert the image from BGR color (which OpenCV uses) to RGB color (which face_recognition uses)
     rgb_small_frame2 = rgb_small_frame[:, :, ::-1]
@@ -95,10 +93,10 @@ def humanFaceDetect(frame):
 
     for(x,y,w,h) in faces:
         #show frame
-        x *= 4
-        y *= 4
-        w *= 4
-        h *= 4
+        x *= 5
+        y *= 5
+        w *= 5
+        h *= 5
         cv2.rectangle(frame,(x,y),(x+w,y+h),(0,255,0),1) #framei göster,sol üst ,sağ üst koordinatla,renk,kalınlık
 
 
@@ -122,6 +120,9 @@ emotion_target_size = emotion_classifier.input_shape[1:3]
 emotion_window = []
 
 
+
+#DECLARE PERSONS
+
 # Load a sample picture and learn how to recognize it.
 person1_image = face_recognition.load_image_file("userpics/ygt.jpg")
 person1_face_encoding = face_recognition.face_encodings(person1_image)[0]
@@ -130,15 +131,24 @@ person1_face_encoding = face_recognition.face_encodings(person1_image)[0]
 person2_image = face_recognition.load_image_file("userpics/doganay.jpg")
 person2_face_encoding = face_recognition.face_encodings(person2_image)[0]
 
+
+person3_image = face_recognition.load_image_file("userpics/fatmanasenturk.jpg")
+person3_face_encoding = face_recognition.face_encodings(person3_image)[0]
+
+
+
+
 # Create arrays of known face encodings and their names
 known_face_encodings = [
     person1_face_encoding,
-    person2_face_encoding
+    person2_face_encoding,
+    person3_face_encoding
 ]
 
 known_face_names = [
     "Yigit Kader",
-    "Doganay"
+    "Doganay",
+    "Fatmana Şentürk"
 ]
 
 
