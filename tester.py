@@ -27,7 +27,7 @@ def face_compare(frame,process_this_frame):
     #grey_ton = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY) #Convertcolor(cvtColor)
 
     # Resize frame of video to 1/4 size for faster face recognition processing
-    small_frame = cv2.resize(frame, (0, 0), fx=0.10, fy=0.10)   
+    small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)   
     
    
     
@@ -64,10 +64,10 @@ def face_compare(frame,process_this_frame):
     # Display the results
     for (top, right, bottom, left), name in zip(face_locations, face_names):
         # Scale back up face locations since the frame we detected in was scaled to 1/10 size
-        top *= 10
-        right *= 10
-        bottom *= 10
-        left *= 10
+        top *= 4
+        right *= 4
+        bottom *= 4
+        left *= 4
         #cv2.rectangle(frame, (left, bottom+36), (right, bottom), (0, 0, 0), cv2.FILLED)
         font = cv2.FONT_HERSHEY_DUPLEX
         cv2.putText(frame, name, (left + 6, bottom+20), font, 0.3, (255, 255, 255), 1)
@@ -229,17 +229,17 @@ while cap.isOpened(): # True:
 
 
         if emotion_text == 'angry':
-            color = (255, 246, 5)
+            color = (255,0,0)
         elif emotion_text == 'sad':
-            color = (255, 246, 5)
+            color = (112,128,144)
         elif emotion_text == 'happy':
-            color = (255, 246, 5)
+            color = (255,255,0)
         elif emotion_text == 'surprise':
-            color = (255, 246, 5)
+            color = (0,0,255)
         elif emotion_text == 'neutral':
-            color = (255, 255, 255)
+            color = (255,255,0)
         else:
-            color = (255, 246, 5)
+            color = (255,255,0)
 
 
         #const color
@@ -252,10 +252,9 @@ while cap.isOpened(): # True:
 
 
 
-
         draw_bounding_box(face_utils.rect_to_bb(face_coordinates), rgb_image, color)
         draw_text(face_utils.rect_to_bb(face_coordinates), rgb_image, name,
-                  color, 0, -25, 1, 1)
+                  color, 0, -20, 1.3, 1)
 
 
 
