@@ -36,7 +36,8 @@ def face_compare(frame,process_this_frame):
     # # Convert the image from BGR color (which OpenCV uses) to RGB color (which face_recognition uses)
     # rgb_small_frame = rgb_small_frame_z[:, :, ::-1]
 
-    rgb_small_frame = small_frame[:, :, ::-1]
+    rgb_small_frame2 = small_frame[:, :, ::-1]
+    rgb_small_frame = rgb_small_frame2[:, :, ::-1]
 
     
     # Only process every other frame of video to save time
@@ -81,7 +82,7 @@ def face_compare(frame,process_this_frame):
 #ISHUMAN CHECK CONTROL
 def humanFaceDetect(frame):
     # Resize frame of video to 1/4 size for faster face recognition processing
-    small_frame = cv2.resize(frame, (0, 0), fx=0.20, fy=0.20)
+    small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
 
     #  # Convert the image from BGR color (which OpenCV uses) to RGB color (which face_recognition uses)
     rgb_small_frame = small_frame[:, :, ::-1]
@@ -93,10 +94,10 @@ def humanFaceDetect(frame):
 
     for(x,y,w,h) in faces:
         #show frame
-        x *= 5
-        y *= 5
-        w *= 5
-        h *= 5
+        x *= 4
+        y *= 4
+        w *= 4
+        h *= 4
         cv2.rectangle(frame,(x,y),(x+w,y+h),(0,255,0),1) #framei göster,sol üst ,sağ üst koordinatla,renk,kalınlık
 
 
@@ -128,8 +129,8 @@ person1_image = face_recognition.load_image_file("userpics/ygt.jpg")
 person1_face_encoding = face_recognition.face_encodings(person1_image)[0]
 
 # Load a second sample picture and learn how to recognize it.
-person2_image = face_recognition.load_image_file("userpics/doganay.jpg")
-person2_face_encoding = face_recognition.face_encodings(person2_image)[0]
+# person2_image = face_recognition.load_image_file("userpics/doganay.jpg")
+# person2_face_encoding = face_recognition.face_encodings(person2_image)[0]
 
 
 person3_image = face_recognition.load_image_file("userpics/fatmanasenturk.jpg")
@@ -141,13 +142,11 @@ person3_face_encoding = face_recognition.face_encodings(person3_image)[0]
 # Create arrays of known face encodings and their names
 known_face_encodings = [
     person1_face_encoding,
-    person2_face_encoding,
     person3_face_encoding
 ]
 
 known_face_names = [
     "Yigit Kader",
-    "Doganay",
     "Fatmana Şentürk"
 ]
 
@@ -246,7 +245,7 @@ while cap.isOpened(): # True:
         # color = (255, 255, 255)
 
         if fname == "Unknown":
-            name = emotion_text
+            name = str(fname) + " is "+ str(emotion_text)
         else:
             name = str(fname) + " is " + str(emotion_text)
 
