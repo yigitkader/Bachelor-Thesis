@@ -26,18 +26,12 @@ def face_compare(frame,process_this_frame):
 
     #grey_ton = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY) #Convertcolor(cvtColor)
 
+
     # Resize frame of video to 1/4 size for faster face recognition processing
-    small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)   
-    
-   
-    
-    # rgb_small_frame_z = small_frame[:, :, ::-1]
+    small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25) 
 
-    # # Convert the image from BGR color (which OpenCV uses) to RGB color (which face_recognition uses)
-    # rgb_small_frame = rgb_small_frame_z[:, :, ::-1]
+    rgb_small_frame = small_frame[:, :, ::-1]
 
-    rgb_small_frame2 = small_frame[:, :, ::-1]
-    rgb_small_frame = rgb_small_frame2[:, :, ::-1]
 
     
     # Only process every other frame of video to save time
@@ -72,7 +66,7 @@ def face_compare(frame,process_this_frame):
         #cv2.rectangle(frame, (left, bottom+36), (right, bottom), (0, 0, 0), cv2.FILLED)
         font = cv2.FONT_HERSHEY_DUPLEX
         cv2.putText(frame, name, (left + 6, bottom+20), font, 0.3, (255, 255, 255), 1)
-        print ("text print")
+        #print ("text print")
 
 
 
@@ -82,7 +76,7 @@ def face_compare(frame,process_this_frame):
 #ISHUMAN CHECK CONTROL
 def humanFaceDetect(frame):
     # Resize frame of video to 1/4 size for faster face recognition processing
-    small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
+    small_frame = cv2.resize(frame, (0, 0), fx=0.20, fy=0.20)
 
     #  # Convert the image from BGR color (which OpenCV uses) to RGB color (which face_recognition uses)
     rgb_small_frame = small_frame[:, :, ::-1]
@@ -94,10 +88,10 @@ def humanFaceDetect(frame):
 
     for(x,y,w,h) in faces:
         #show frame
-        x *= 4
-        y *= 4
-        w *= 4
-        h *= 4
+        x *= 5
+        y *= 5
+        w *= 5
+        h *= 5
         cv2.rectangle(frame,(x,y),(x+w,y+h),(0,255,0),1) #framei göster,sol üst ,sağ üst koordinatla,renk,kalınlık
 
 
@@ -108,7 +102,7 @@ def humanFaceDetect(frame):
 
 # hyper-parameters for bounding boxes shape
 frame_window = 10
-emotion_offsets = (20, 40)
+emotion_offsets = (10, 50)
 
 # loading models
 detector = dlib.get_frontal_face_detector()
@@ -128,9 +122,9 @@ emotion_window = []
 person1_image = face_recognition.load_image_file("userpics/ygt.jpg")
 person1_face_encoding = face_recognition.face_encodings(person1_image)[0]
 
-# Load a second sample picture and learn how to recognize it.
-# person2_image = face_recognition.load_image_file("userpics/doganay.jpg")
-# person2_face_encoding = face_recognition.face_encodings(person2_image)[0]
+#Load a second sample picture and learn how to recognize it.
+person2_image = face_recognition.load_image_file("userpics/doganay.jpg")
+person2_face_encoding = face_recognition.face_encodings(person2_image)[0]
 
 
 person3_image = face_recognition.load_image_file("userpics/fatmanasenturk.jpg")
@@ -142,11 +136,13 @@ person3_face_encoding = face_recognition.face_encodings(person3_image)[0]
 # Create arrays of known face encodings and their names
 known_face_encodings = [
     person1_face_encoding,
+    person2_face_encoding,
     person3_face_encoding
 ]
 
 known_face_names = [
     "Yigit Kader",
+    "doganay"
     "Fatmana Şentürk"
 ]
 
@@ -206,25 +202,6 @@ while cap.isOpened(): # True:
         except:
             continue
 
-
-
-        # if emotion_text == 'angry':
-        #     color = emotion_probability * np.asarray((255, 246, 5))
-        # elif emotion_text == 'sad':
-        #     color = emotion_probability * np.asarray((255, 246, 5))
-        # elif emotion_text == 'happy':
-        #     color = emotion_probability * np.asarray((255, 246, 5))
-        # elif emotion_text == 'surprise':
-        #     color = emotion_probability * np.asarray((255, 246, 5))
-        # elif emotion_text == 'neutral':
-        #     color = emotion_probability * np.asarray((255, 246, 5))
-        # else:
-        #     color = emotion_probability * np.asarray((255, 246, 5))
-
-
-
-        # color = color.astype(int)
-        # color = color.tolist()
 
 
         if emotion_text == 'angry':
