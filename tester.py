@@ -241,9 +241,6 @@ while cap.isOpened(): # True:
             color = (255,255,0)
 
 
-        #const color
-        # color = (255, 255, 255)
-
         if fname == "Unknown":
             name = str(fname) + " is "+ str(emotion_text)
         else:
