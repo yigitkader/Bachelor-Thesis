@@ -138,12 +138,13 @@ known_face_encodings = [
     person1_face_encoding,
     person2_face_encoding,
     person3_face_encoding
+
 ]
 
 known_face_names = [
     "Yigit Kader",
-    "doganay"
-    "Fatmana Şentürk"
+    "doganay",
+    "Fatmana Senturk"
 ]
 
 
@@ -219,7 +220,7 @@ while cap.isOpened(): # True:
 
 
         if fname == "Unknown":
-            name = str(fname) + " is "+ str(emotion_text)
+            name = str(fname) +" is "+ str(emotion_text)
         else:
             name = str(fname) + " is " + str(emotion_text)
 
