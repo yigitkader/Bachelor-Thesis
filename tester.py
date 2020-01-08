@@ -30,6 +30,7 @@ def face_compare(frame,process_this_frame):
     # Resize frame of video to 1/4 size for faster face recognition processing
     small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25) 
 
+    #bgr to rgb
     rgb_small_frame = small_frame[:, :, ::-1]
 
 
@@ -66,7 +67,7 @@ def face_compare(frame,process_this_frame):
         #cv2.rectangle(frame, (left, bottom+36), (right, bottom), (0, 0, 0), cv2.FILLED)
         font = cv2.FONT_HERSHEY_DUPLEX
         cv2.putText(frame, name, (left + 6, bottom+20), font, 0.3, (255, 255, 255), 1)
-        #print ("text print")
+
 
 
 
@@ -131,20 +132,41 @@ person3_image = face_recognition.load_image_file("userpics/fatmanasenturk.jpg")
 person3_face_encoding = face_recognition.face_encodings(person3_image)[0]
 
 
+person4_image = face_recognition.load_image_file("userpics/bpitt.jpg")
+person4_face_encoding = face_recognition.face_encodings(person4_image)[0]
+
+person5_image = face_recognition.load_image_file("userpics/ldicaprio.jpeg")
+person5_face_encoding = face_recognition.face_encodings(person5_image)[0]
+
+person6_image = face_recognition.load_image_file("userpics/skotat.jpeg")
+person6_face_encoding = face_recognition.face_encodings(person6_image)[0]
+
+person7_image = face_recognition.load_image_file("userpics/sumutcakir.jpg")
+person7_face_encoding = face_recognition.face_encodings(person7_image)[0]
+
 
 
 # Create arrays of known face encodings and their names
 known_face_encodings = [
     person1_face_encoding,
     person2_face_encoding,
-    person3_face_encoding
+    person3_face_encoding,
+    person4_face_encoding,
+    person5_face_encoding,
+    person6_face_encoding,
+    person7_face_encoding
+
 
 ]
 
 known_face_names = [
     "Yigit Kader",
     "doganay",
-    "Fatmana Senturk"
+    "Fatmana Senturk",
+    "Brad Pitt",
+    "Leo Dicaprio",
+    "Sezai Tokat",
+    "Sevket Cakir"
 ]
 
 
@@ -160,7 +182,7 @@ cap = None
 if (USE_WEBCAM == True):
     cap = cv2.VideoCapture(0) # Webcam source
 else:
-    cap = cv2.VideoCapture('testvdo.mp4') # Video file source
+    cap = cv2.VideoCapture('testvdo.mp4') 
 
 
 while cap.isOpened(): # True:

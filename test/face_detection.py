@@ -10,10 +10,10 @@ import face_recognition
 camera = cv2.VideoCapture(0)
 
 #declare persons and images
-person1_image = face_recognition.load_image_file('userpics/ygt.jpg');
+person1_image = face_recognition.load_image_file('../userpics/ygt.jpg');
 person1_face_encoding = face_recognition.face_encodings(person1_image)[0]
 
-person2_image = face_recognition.load_image_file('userpics/doganay.jpg');
+person2_image = face_recognition.load_image_file('../userpics/doganay.jpg');
 person2_face_encoding = face_recognition.face_encodings(person2_image)[0]
 
 
