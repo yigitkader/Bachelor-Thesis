@@ -1,4 +1,4 @@
-# My Bachelor-Thesis About Face Detection And Facial Expression
+# My Bachelor Thesis About Face Detection And Facial Expression
 
 
 # Dependencies
