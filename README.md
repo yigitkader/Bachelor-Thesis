@@ -25,4 +25,4 @@
 
 # Usage
 
-$python tester.py
+$python main_tester.py
