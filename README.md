@@ -1,5 +1,6 @@
 # My Bachelor Thesis About Face Detection And Facial Expression
 
+![pic](https://github.com/yigitkader/Bachelor-Thesis/blob/master/testpics/Screen%20Shot%202020-03-06%20at%2003.03.45.png)
 
 # Dependencies
 
